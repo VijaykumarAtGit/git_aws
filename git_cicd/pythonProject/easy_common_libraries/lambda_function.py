@@ -8,5 +8,6 @@ def lambda_handler():
     print("Square of the number is :-- ", getSquare(num))
     return getSquare(num)
 
+
 # if __name__ == "__main__":
 #     lambda_handler()
