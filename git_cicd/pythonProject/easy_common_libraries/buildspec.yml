@@ -18,5 +18,5 @@ phases:
   post_build:
     commands:
       - echo "Updating Lambda function ..."
-      - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://deployment_package.zip
+      - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://git_cicd/pythonProject/easy_common_libraries/deployment_package.zip
       - echo "Deployment complete!"
