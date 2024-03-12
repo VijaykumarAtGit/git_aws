@@ -9,6 +9,7 @@ phases:
   build:
     commands:
       - echo "Zipping deployment package..."
+      - echo "Current Dir is " $PWD
       - cd package
       - zip -r9 ../deployment_package.zip .
       - cd ..
