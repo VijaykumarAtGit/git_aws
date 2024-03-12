@@ -10,7 +10,8 @@ phases:
     commands:
       - echo "Zipping deployment package..."
       - echo "Current Dir is " $PWD
-      - cd package
+      - cd  git_cicd/pythonProject/easy_common_libraries/package
+      - echo "Current Dir is " $PWD
       - zip -r9 ../deployment_package.zip .
       - cd ..
       - zip -g deployment_package.zip lambda_function.py
