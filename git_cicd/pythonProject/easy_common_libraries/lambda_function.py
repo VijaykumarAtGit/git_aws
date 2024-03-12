@@ -2,8 +2,8 @@ import json
 from  math_functions import *
 
 
-# def lambda_handler(event, context):
-def lambda_handler():
+def lambda_handler(event, context):
+# def lambda_handler():
     num = 100
     print("Square of the number is :-- ", getSquare(num))
     return getSquare(num)
