@@ -20,5 +20,5 @@ phases:
       - echo "Updating Lambda function ..."
       - echo "Current Dir is " $PWD
       - ls -ltr $PWD/*
-      - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://git_cicd/pythonProject/easy_common_libraries/deployment_package.zip
+      - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://deployment_package.zip
       - echo "Deployment complete!"
