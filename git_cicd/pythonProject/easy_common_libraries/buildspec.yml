@@ -25,8 +25,8 @@ phases:
       - aws lambda get-function  --function-name lambdaFromCICD 
       - aws lambda get-function  --function-name lambdaFromCICDNew 2>/dev/null
       - if [ $? -ne 0 ];then 
-      -     aws lambda update-function-code --function-name lambdaFromCICDNew --zip-file fileb://deployment_package.zip
-      - else
-      -     aws lambda create-function --function-name lambdaFromCICDNew --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip
-      - fi
+            aws lambda update-function-code --function-name lambdaFromCICDNew --zip-file fileb://deployment_package.zip
+        else
+            aws lambda create-function --function-name lambdaFromCICDNew --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip
+        fi
       - echo "Deployment complete!"
