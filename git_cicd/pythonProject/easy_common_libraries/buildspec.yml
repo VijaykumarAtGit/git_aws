@@ -22,4 +22,5 @@ phases:
       - ls -ltr $PWD/*
       
       - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://deployment_package.zip
+      - aws lambda get-function  --function-name lambdaFromCICD 
       - echo "Deployment complete!"
