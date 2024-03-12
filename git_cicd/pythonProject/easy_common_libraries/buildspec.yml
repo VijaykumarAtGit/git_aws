@@ -24,6 +24,7 @@ phases:
       - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://deployment_package.zip
       - aws lambda get-function  --function-name lambdaFromCICD 
       - aws lambda get-function  --function-name lambdaFromCICDNew 
+      - cat /codebuild/output/tmp/script.sh
       - if [[ $? -eq 0 ]];then
       -     aws lambda update-function-code --function-name lambdaFromCICDNew --zip-file fileb://deployment_package.zip
       - else
