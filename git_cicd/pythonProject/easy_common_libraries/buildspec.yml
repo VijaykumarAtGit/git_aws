@@ -8,17 +8,18 @@ phases:
       - echo "Current Dir is " $PWD
       - cd git_cicd/pythonProject/easy_common_libraries/
       - pip install -r requirements.txt -t package
+      - ls -ltr $PWD/*
   build:
     commands:
       - echo "Zipping deployment package..."
       - echo "Current Dir is " $PWD
       - cd package
-      - zip -g ../deployment_package.zip .
+      - zip -r9 ../deployment_package.zip .
       - ls -ltr $PWD/*
       - cd ..
       - ls -ltr $PWD/*
       - echo "Current Dir is " $PWD
-      - zip -r9 deployment_package.zip lambda_function.py
+      - zip -g deployment_package.zip lambda_function.py
 
   post_build:
     commands:
