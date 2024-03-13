@@ -5,7 +5,9 @@ phases:
       python: 3.12
     commands:
       - echo "Installing dependencies..."
-
+      - echo "Current Dir is " $PWD
+      - cd git_cicd/pythonProject/easy_common_libraries/
+      - pip install -r requirements.txt -t package
   build:
     commands:
       - echo "Zipping deployment package..."
