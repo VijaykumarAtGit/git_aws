@@ -28,5 +28,6 @@ phases:
       - layerARN=$(aws lambda list-layer-versions --layer-name math-layer-for-lambda --query 'LayerVersions[0].LayerVersionArn')
       - echo "Layer Name is ${layerARN}"
       - cmdToCreateFunc=$(echo "aws lambda create-function --function-name lambdaFromCICDNewLayer --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip --layers ${layerARN}")
+      - echo "--------------->' $cmdToCreateFunc
       - $cmdToCreateFunc
       - echo "Deployment complete!"
