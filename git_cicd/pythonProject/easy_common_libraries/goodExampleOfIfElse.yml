@@ -1,0 +1,37 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies..."
+
+  build:
+    commands:
+      - echo "Zipping deployment package..."
+      - echo "Current Dir is " $PWD
+      - cd git_cicd/pythonProject/easy_common_libraries/
+      - zip -g deployment_package.zip lambda_function.py
+      - ls -ltr $PWD/*
+      - echo "Current Dir is " $PWD
+      - zip -r9 python_package.zip python
+
+  post_build:
+    commands:
+      - echo "Updating Lambda function ..."
+      - echo "Current Dir is " $PWD
+      - ls -ltr $PWD/*
+      - cat /codebuild/output/tmp/script.sh
+      - cat /codebuild/output/tmp/env.sh
+      - if [[ $? -eq 0 ]];then echo "correct"; else echo "non zero" ; fi
+      - if [[ $? -eq 0 ]];then echo "correct"; fi
+      - find /codebuild -name '*.sh' |  xargs -t -I {} cat {}
+
+      - aws lambda publish-layer-version --layer-name math-layer-for-lambda --description "Math layer" --license-info "MATH" --zip-file fileb://python_package.zip --compatible-runtimes python3.12 python3.11 --compatible-architectures "arm64" "x86_64"
+      - layerARN=$(aws lambda list-layer-versions --layer-name math-layer-for-lambda --query 'LayerVersions[0].LayerVersionArn' | sed 's/\"//g')
+      - echo "Layer Name is ${layerARN}"
+
+      - cmdToCreateFunc=$(echo "aws lambda create-function --function-name lambdaFromCICDNewLayer --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip --layers ${layerARN}")
+      - echo "--------------->" $cmdToCreateFunc
+      - $cmdToCreateFunc
+      - echo "Deployment complete!"
