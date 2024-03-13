@@ -32,6 +32,7 @@ phases:
       - aws lambda publish-layer-version --layer-name math-layer-for-lambda --description "Math layer" --license-info "MATH" --zip-file fileb://python_package.zip --compatible-runtimes python3.12 python3.11 --compatible-architectures "arm64" "x86_64"
       - layerARN=$(aws lambda list-layer-versions --layer-name math-layer-for-lambda --query 'LayerVersions[0].LayerVersionArn' | sed 's/\"//g')
       - echo "Layer Name is ${layerARN}"
+      
       - cmdToCreateFunc=$(echo "aws lambda create-function --function-name lambdaFromCICDNewLayer --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip --layers ${layerARN}")
       - echo "--------------->" $cmdToCreateFunc
       - $cmdToCreateFunc
