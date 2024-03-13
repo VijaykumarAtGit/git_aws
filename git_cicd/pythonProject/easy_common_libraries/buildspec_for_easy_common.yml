@@ -1,0 +1,28 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - echo "Installing dependencies..."
+
+  build:
+    commands:
+      - echo "Zipping deployment package..."
+      - echo "Current Dir is " $PWD
+      - cd  git_cicd/pythonProject/easy_common_libraries/package
+      - echo "Current Dir is " $PWD
+      - zip -r9 ../deployment_package.zip .
+      - cd ..
+      - zip -g deployment_package.zip lambda_function.py
+  post_build:
+    commands:
+      - echo "Updating Lambda function ..."
+      - echo "Current Dir is " $PWD
+      - ls -ltr $PWD/*
+      
+      - aws lambda update-function-code --function-name lambdaFromCICD --zip-file fileb://deployment_package.zip
+      - aws lambda get-function  --function-name lambdaFromCICD 
+      - aws lambda get-function  --function-name lambdaFromCICDNew 2>/dev/null
+      - aws lambda create-function --function-name lambdaFromCICDNew --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip
+      - echo "Deployment complete!"
