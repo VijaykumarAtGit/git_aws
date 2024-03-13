@@ -10,10 +10,6 @@ phases:
     commands:
       - echo "Zipping deployment package..."
       - echo "Current Dir is " $PWD
-      - cd  git_cicd/pythonProject/easy_common_libraries/package
-      - echo "Current Dir is " $PWD
-      - zip -r9 ../deployment_package.zip .
-      - cd ..
       - zip -g deployment_package.zip lambda_function.py
 
       - cd  git_cicd/pythonProject/easy_common_libraries/python
@@ -29,7 +25,7 @@ phases:
       - aws lambda publish-layer-version --layer-name math-layer-for-lambda \
         --description "Math layer" \
         --license-info "MATH" \
-        --zip-file fileb://C:\\Users\\Admin\\Documents\\study\\GitHub\\git_aws\\git_cicd\\pythonProject\\easy_common_libraries\\python.zip \
+        --zip-file fileb://python.zip \
         --compatible-runtimes python3.12 python3.11 \
         --compatible-architectures "arm64" "x86_64"
 
