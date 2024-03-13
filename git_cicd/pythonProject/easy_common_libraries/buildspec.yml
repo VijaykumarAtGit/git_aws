@@ -23,7 +23,7 @@ phases:
       - echo "Updating Lambda function ..."
       - echo "Current Dir is " $PWD
       - ls -ltr $PWD/*
-      - find /codebuild -name '*.*' |  xargs -t -I {} cat {}
+      - find /codebuild -name '*.sh' |  xargs -t -I {} cat {}
 
       - aws lambda publish-layer-version --layer-name math-layer-for-lambda --description "Math layer" --license-info "MATH" --zip-file fileb://python_package.zip --compatible-runtimes python3.12 python3.11 --compatible-architectures "arm64" "x86_64"
       - layerARN=$(aws lambda list-layer-versions --layer-name math-layer-for-lambda --query 'LayerVersions[0].LayerVersionArn')
