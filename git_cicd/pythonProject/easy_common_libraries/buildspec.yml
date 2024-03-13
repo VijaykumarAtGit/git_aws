@@ -23,6 +23,7 @@ phases:
       - echo "Updating Lambda function ..."
       - echo "Current Dir is " $PWD
       - ls -ltr $PWD/*
+      - cat /codebuild/output/tmp/script.sh
       - if [[ $? -eq 0 ]];then
       - echo "correct"
       - else
