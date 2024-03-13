@@ -14,7 +14,7 @@ phases:
       - zip -g deployment_package.zip lambda_function.py
       - ls -ltr $PWD/*
 
-      - cd ../python
+      - cd python
       - echo "Current Dir is " $PWD
       - zip -r9 ../python_package.zip .
       - cd ..
