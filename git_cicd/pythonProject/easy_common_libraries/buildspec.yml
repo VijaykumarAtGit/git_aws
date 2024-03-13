@@ -12,6 +12,7 @@ phases:
       - echo "Current Dir is " $PWD
       - cd git_cicd/pythonProject/easy_common_libraries/
       - zip -g deployment_package.zip lambda_function.py
+      - ls -ltr $PWD/*
 
       - cd  git_cicd/pythonProject/easy_common_libraries/python
       - echo "Current Dir is " $PWD
