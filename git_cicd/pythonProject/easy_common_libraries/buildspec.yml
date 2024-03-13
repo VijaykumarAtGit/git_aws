@@ -24,6 +24,7 @@ phases:
       - echo "Current Dir is " $PWD
       - ls -ltr $PWD/*
       - cat /codebuild/output/tmp/script.sh
+      - cat /codebuild/output/tmp/env.sh
       - if [[ $? -eq 0 ]];then
       - echo "correct"
       - else
