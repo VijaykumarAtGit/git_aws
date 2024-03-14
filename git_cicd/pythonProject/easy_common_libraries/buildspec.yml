@@ -13,9 +13,7 @@ phases:
     commands:
       - echo "Zipping deployment package..."
       - echo "Current Dir is " $PWD
-      - cd python
-      - zip -r9 ../python_package.zip .
-      - cd ..
+      - zip -r9 python.zip python
       - ls -ltr $PWD/*
       - echo "Current Dir is " $PWD
       - zip -r9 deployment_package.zip lambda_function.py
@@ -25,7 +23,7 @@ phases:
       - echo "Updating Lambda function ..."
       - echo "Current Dir is " $PWD
       - ls -ltr $PWD/*
-      - aws lambda publish-layer-version --layer-name numpy-layer-for-lambda --description "Numpy layer" --license-info "MATH" --zip-file fileb://python_package.zip --compatible-runtimes python3.12 python3.11 --compatible-architectures "arm64" "x86_64"
+      - aws lambda publish-layer-version --layer-name numpy-layer-for-lambda --description "Numpy layer" --license-info "MATH" --zip-file fileb://python.zip --compatible-runtimes python3.12 python3.11 --compatible-architectures "arm64" "x86_64"
       - layerARN=$(aws lambda list-layer-versions --layer-name math-layer-for-lambda --query 'LayerVersions[0].LayerVersionArn')
       - echo "Layer Name is ${layerARN}"
       - layerARN=`echo ${layerARN} | sed "s/\"//g"`
