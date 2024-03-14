@@ -30,6 +30,8 @@ phases:
       - deleteFunction=$(echo "aws lambda delete-function --function-name lambdafForTranposeNumpyLayer")
       - createFunction=$(echo "aws lambda create-function --function-name lambdafForTranposeNumpyLayer --runtime python3.12 --handler lambda_function.lambda_handler --role arn:aws:iam::120582745863:role/awsLambdaFullAccess --zip-file fileb://deployment_package.zip --layers=${layerARN}")
       - aws lambda get-function --function-name  lambdafForTranposeNumpyLayer
+      - echo "Delete function is --->" ${deleteFunction}
+      - echo "Create function is --->" ${createFunction}
       - if [[ $? -eq 0 ]];then ${deleteFunction} ; else ${createFunction} ; fi
 
       - echo "Deployment complete!"
